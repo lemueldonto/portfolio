@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NavService, Menu } from '../../../service/nav.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,19 +6,14 @@ import { NavService, Menu } from '../../../service/nav.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  public menuItems: Menu[];
   public openSide = false;
   public activeItem = 'home';
   public active = false;
-  public activeChildItem = ''
   public overlay = false;
 
-  constructor( public navServices: NavService) { }
+  constructor( ) { }
 
   ngOnInit() {
-    this.navServices.items.subscribe(menuItems => {
-      this.menuItems = menuItems
-    });
   }
 
   toggleSidebar(){
@@ -41,19 +35,6 @@ export class MenuComponent implements OnInit {
 
   isActive(item){
     return this.activeItem === item
-  }
-
-  // For Active Child Menu in Mobile View
-  setChildActive(subMenu){
-    if (this.activeChildItem === subMenu) {
-      this.activeChildItem = ''
-    } else {
-      this.activeChildItem = subMenu
-    }
-  }
-
-  ischildActive(subMenu){
-    return this.activeChildItem === subMenu
   }
 
 
