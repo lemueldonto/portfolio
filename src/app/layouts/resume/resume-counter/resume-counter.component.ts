@@ -9,28 +9,32 @@ export class ResumeCounterComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
   counter = [
     {
-      count:'14',
+      count:'',
       img:'assets/images/resume/icon/1.png',
-      type:'Satisfied Customers'
+      type:'Rigoureux',
+      type2:'Calme et Mésuré'
     },
     {
-      count:'54',
+      count:'',
       img:'assets/images/resume/icon/2.png',
-      type:'Total Speaker'
+      type:'Agile',
+      type2:  'Travail d\'équipe'
     },
     {
-      count:'560',
+      count:'',
       img:'assets/images/resume/icon/3.png',
-      type:'Hours Worked'
+      type:'Adaptabilité ',
+      type2: 'Flexibilité'
     },
     {
-      count:'9635',
+      count:'',
       img:'assets/images/resume/icon/4.png',
-      type:'Awwards Winning'
+      type: 'Concurrent',
+      type2: 'Polyvalent, Autonome'
     }]
+
+  ngOnInit() {
+  }
 }

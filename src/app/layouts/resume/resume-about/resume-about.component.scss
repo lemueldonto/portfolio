@@ -1,0 +1,19 @@
+.block {
+  text-align: center;
+  vertical-align: middle;
+}
+.circle {
+  border-radius: 100px;
+  border: 3px solid black;
+  height: 100px;
+  font-weight: bold;
+  width: 100px;
+  display: table;
+  margin: 20px auto;
+}
+.circle p {
+  vertical-align: middle;
+  display: table-cell;
+  color: black;
+  font-size: large;
+}
