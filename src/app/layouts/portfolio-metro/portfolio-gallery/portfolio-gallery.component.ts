@@ -19,7 +19,7 @@ import {
   styleUrls: ['./portfolio-gallery.component.scss']
 })
 export class PortfolioGalleryComponent implements OnInit {
-  public customizer: any = "all"
+  public customizer: any = 'all'
   allImages: Image[] = [
     new Image(0, { img: 'assets/images/portfolio/1.jpg' }),
     new Image(0, { img: 'assets/images/portfolio/2.jpg' }),
@@ -54,6 +54,7 @@ export class PortfolioGalleryComponent implements OnInit {
 
   openImageModalRowDescription(image: Image) {
     const index: number = this.getCurrentIndexCustomLayout(image, this.allImages);
+    // tslint:disable-next-line:max-line-length
     this.customPlainGalleryRowDescConfig = Object.assign({}, this.customPlainGalleryRowDescConfig, { layout: new AdvancedLayout(index, true) });
   }
 

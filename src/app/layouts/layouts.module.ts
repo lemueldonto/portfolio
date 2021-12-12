@@ -27,7 +27,7 @@ import { ResumeSubscribeComponent } from './resume/resume-subscribe/resume-subsc
 import { ResumeFooterComponent } from './resume/resume-footer/resume-footer.component';
 
 
-//Portfolio Layout
+// Portfolio Layout
 import { PortfolioMetroComponent } from './portfolio-metro/portfolio-metro.component';
 import { PortfolioHeaderComponent } from './portfolio-metro/portfolio-header/portfolio-header.component';
 import { PortfolioBreadcrumbComponent } from './portfolio-metro/portfolio-breadcrumb/portfolio-breadcrumb.component';
@@ -36,15 +36,14 @@ import { PortfolioFooterComponent } from './portfolio-metro/portfolio-footer/por
 import { PortfolioCopyrightComponent } from './portfolio-metro/portfolio-copyright/portfolio-copyright.component';
 import { FashionComponent } from './portfolio-metro/portfolio-gallery/fashion/fashion.component';
 import { BagsComponent } from './portfolio-metro/portfolio-gallery/bags/bags.component';
-import { ShoesComponent } from './portfolio-metro/portfolio-gallery/shoes/shoes.component';
-import { WatchComponent } from './portfolio-metro/portfolio-gallery/watch/watch.component';
 import { GalleryComponent } from './portfolio-metro/portfolio-gallery/gallery/gallery.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {};
 
 @NgModule({
   declarations: [
-    ResumeComponent, ResumeNavComponent, ResumeHeaderComponent, ResumeAboutComponent, ResumeServicesComponent, ResumePortfolioComponent, ResumeCounterComponent, ResumeScheduleComponent, ResumePricingComponent, ResumeSubscribeComponent, ResumeFooterComponent, PortfolioMetroComponent, PortfolioGalleryComponent, PortfolioHeaderComponent, PortfolioBreadcrumbComponent, PortfolioFooterComponent, PortfolioCopyrightComponent, FashionComponent, BagsComponent, ShoesComponent, WatchComponent, GalleryComponent],
+    // tslint:disable-next-line:max-line-length
+    ResumeComponent, ResumeNavComponent, ResumeHeaderComponent, ResumeAboutComponent, ResumeServicesComponent, ResumePortfolioComponent, ResumeCounterComponent, ResumeScheduleComponent, ResumePricingComponent, ResumeSubscribeComponent, ResumeFooterComponent, PortfolioMetroComponent, PortfolioGalleryComponent, PortfolioHeaderComponent, PortfolioBreadcrumbComponent, PortfolioFooterComponent, PortfolioCopyrightComponent, FashionComponent, BagsComponent, GalleryComponent],
 
   imports: [
     CommonModule,

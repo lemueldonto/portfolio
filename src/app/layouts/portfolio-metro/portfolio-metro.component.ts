@@ -13,7 +13,7 @@ export class PortfolioMetroComponent implements OnInit {
     private title: Title) { }
 
   ngOnInit() {
-    this.title.setTitle(this.route.snapshot.data['title']);
+    this.title.setTitle(this.route.snapshot.data.title);
   }
 
 }

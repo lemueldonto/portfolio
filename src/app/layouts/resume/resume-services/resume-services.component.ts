@@ -32,27 +32,32 @@ export class ResumeServicesComponent implements OnInit {
     },
     {
       img:'assets/images/resume/service-exprience/5.png',
-      type:'Web Design',
-      content: 'Unlike team chat apps, Flow is designed to help your team stay focused by keeping relevant\n' +
-          'and actionable.'
+      type:'Architecture Logiciel',
+      content: 'Connaissances des bases de l\'architecture logiciel, Conception de systèmes en developpement et intégration continue.' +
+          'Utilisation d\'outils et méthodes DevOps dans la gestion d\'infrastructures informatiques'+
+          'Mise an place des tests d\'intégration et de regression' +
+          'Utilisation des outils comme J2E, .NET, Docker,Kubernetes, Artifactory, Jenkins, etc.'
     },
     {
       img:'assets/images/resume/service-exprience/6.png',
-      type:'Web Devloper',
-      content: 'Unlike team chat apps, Flow is designed to help your team stay focused by keeping relevant\n' +
-          'and actionable.'
+      type:'Dévélopement Web',
+      content: 'Compétences acquises au bout de plusieurs projets de dévéloppement Web. Mise en place de Web Services (Fonctionnalités métiers) ' +
+          'Mise en place si nécéssaire des microservices. Developpement d\'applications Web sous forme de SDK.' +
+          'Utilisation des outils comme HTML, Python, Javascript, Spring, Spring Boot, Java EE, Artifactory, Docker, etc.',
     },
     {
       img:'assets/images/resume/service-exprience/7.png',
-      type:'Web Design',
-      content: 'Unlike team chat apps, Flow is designed to help your team stay focused by keeping relevant\n' +
-          'and actionable.'
+      type:'Developement FullStack',
+      content: 'Développement de systèmes Client - Serveur. Conception de sites attractifs mais adaptés aux besoins des utilisateurs, prenant en compte ' +
+          'l\'adaptation sur plusieurs types d\'écrans (Resonsive Design).'+
+          'Mise en place d\'interfaces d\'offre de services et de données. Ionic, Angular, Django, NodeJS etc...'
     },
     {
       img:'assets/images/resume/service-exprience/8.png',
-      type:'Web Design',
-      content: 'Unlike team chat apps, Flow is designed to help your team stay focused by keeping relevant\n' +
-          'and actionable.'
+      type:'IOT & Intélligence Ambiante',
+      content: 'Connaissances de bases en IOT & Intelligente Ambiante. '+
+          'Programmation de cartes Arduino. Mise en systèmes et logiciels embarqués. Conception de systèmes cyber-physiques.' +
+          'Arduino, MicroC/OS-II, FreeRTOS'
     }
    ]
 
