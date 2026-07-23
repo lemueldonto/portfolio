@@ -10,8 +10,8 @@ import { ArrowUpRight } from '../components/icons'
 const title: L = { en: 'Projects', fr: 'Projets' }
 const kicker: L = { en: 'Selected work', fr: 'Projets choisis' }
 const lead: L = {
-  en: 'I’m an entrepreneur — I start a lot of projects. These are the two already live with a working MVP, architected and built end to end with a small team.',
-  fr: 'Entrepreneur, je lance beaucoup de projets. Voici les deux qui ont déjà un MVP en production, architecturés et construits de bout en bout avec une petite équipe.',
+  en: 'I start a lot. I ship what matters. Of everything I’ve built, these two already run in production — architected and shipped end to end with a small team.',
+  fr: 'Je lance beaucoup. Je livre ce qui compte. De tout ce que j’ai construit, ces deux‑là tournent déjà en production — architecturés et livrés de bout en bout avec une petite équipe.',
 }
 const theProblem: L = { en: 'The problem', fr: 'Le problème' }
 const whatIBuilt: L = { en: 'What I built', fr: 'Ce que j’ai construit' }
