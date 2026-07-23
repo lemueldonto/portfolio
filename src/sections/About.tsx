@@ -94,8 +94,8 @@ export function About() {
           <div className="md:sticky md:top-8">
             <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-[0_24px_60px_-28px_rgba(6,24,70,0.5)] ring-1 ring-inset ring-ink/10">
               <img
-                src="/img/about-me.webp"
-                alt="Lemuel Donto"
+                src="/img/about-diploma.webp"
+                alt="Diplôme d’ingénieur — Komlan Lemuel Donto, École Polytechnique Universitaire, Université Côte d’Azur"
                 className="h-full w-full object-cover object-center"
               />
             </div>
