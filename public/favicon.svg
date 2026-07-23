@@ -1,25 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <defs>
-    <radialGradient id="g" cx="50%" cy="50%" r="60%">
-      <stop offset="0%" stop-color="#5cf6ff"/>
-      <stop offset="100%" stop-color="#00E5FF"/>
-    </radialGradient>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="8" y1="6" x2="56" y2="60">
+      <stop offset="0" stop-color="#0b3ea8"/><stop offset="1" stop-color="#04184a"/>
+    </linearGradient>
+    <linearGradient id="ast" gradientUnits="userSpaceOnUse" x1="35" y1="22" x2="50" y2="42">
+      <stop offset="0" stop-color="#8fb0ff"/><stop offset="1" stop-color="#3567f5"/>
+    </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="14" fill="#050810"/>
-  <!-- distributed network: edges -->
-  <g stroke="#00E5FF" stroke-width="2" stroke-opacity="0.55">
-    <line x1="32" y1="14" x2="16" y2="32"/>
-    <line x1="32" y1="14" x2="48" y2="32"/>
-    <line x1="16" y1="32" x2="32" y2="50"/>
-    <line x1="48" y1="32" x2="32" y2="50"/>
-    <line x1="16" y1="32" x2="48" y2="32"/>
+  <rect width="64" height="64" rx="15" fill="url(#bg)"/>
+  <g fill="none" stroke="#fff" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 16 V48 H27"/>
+    <path d="M31.5 16 V48"/>
+    <path d="M31.5 16 H36 C49.5 16 53 23.5 53 32 C53 40.5 49.5 48 36 48 H31.5"/>
   </g>
-  <!-- nodes -->
-  <g fill="url(#g)">
-    <circle cx="32" cy="14" r="5"/>
-    <circle cx="16" cy="32" r="5"/>
-    <circle cx="48" cy="32" r="5"/>
-    <circle cx="32" cy="50" r="5"/>
+  <g transform="translate(42,32) scale(0.40)">
+    <g stroke="url(#ast)" stroke-width="5" stroke-linecap="round">
+      <line x1="0" y1="0" x2="0" y2="-16"/><line x1="0" y1="0" x2="0" y2="16"/>
+      <line x1="0" y1="0" x2="-15.6" y2="-9"/><line x1="0" y1="0" x2="15.6" y2="9"/>
+      <line x1="0" y1="0" x2="-15.6" y2="9"/><line x1="0" y1="0" x2="15.6" y2="-9"/>
+    </g>
+    <g fill="url(#ast)">
+      <circle cx="0" cy="-16" r="5"/><circle cx="0" cy="16" r="5"/>
+      <circle cx="-15.6" cy="-9" r="5"/><circle cx="15.6" cy="9" r="5"/>
+      <circle cx="-15.6" cy="9" r="5"/><circle cx="15.6" cy="-9" r="5"/>
+    </g>
+    <circle cx="0" cy="0" r="6.6" fill="#eafcff"/>
   </g>
-  <circle cx="32" cy="32" r="3.5" fill="#eafcff"/>
 </svg>
