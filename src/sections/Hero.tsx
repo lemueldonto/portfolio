@@ -67,7 +67,7 @@ function ScienceQuote() {
 
   const q = quotes[i]
   return (
-    <div className="hidden max-w-[260px] text-right sm:block">
+    <div className="block max-w-[46%] text-right sm:max-w-[260px]">
       <AnimatePresence mode="wait">
         <motion.p
           key={i}
@@ -75,7 +75,7 @@ function ScienceQuote() {
           animate={{ opacity: 1, y: 0 }}
           exit={reduce ? { opacity: 1 } : { opacity: 0, y: -6 }}
           transition={{ duration: 0.5, ease: EASE }}
-          className="text-[13px] font-medium italic leading-snug text-white/85"
+          className="text-[11px] font-medium italic leading-snug text-white/85 sm:text-[13px]"
         >
           “{t(q.text)}”
           <span className="mt-1.5 block text-[10px] font-semibold not-italic uppercase tracking-[0.14em] text-white/45">
