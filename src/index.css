@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ── DARK · the screening room (default) ───────────────────────────────── */
+  :root,
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+
+    /* Frame* — deep royal blue */
+    --c-film-950: 4 12 40;
+    --c-film-900: 7 26 74;
+    --c-film-850: 10 33 87;
+    --c-film-800: 13 41 101;
+    --c-film-700: 18 58 130;
+    --c-film-600: 25 72 156;
+
+    --c-olive: 60 90 170;
+    --c-olive-light: 110 140 210;
+    --c-olive-dark: 38 62 128;
+
+    --c-cream: 234 240 255;
+    --c-cream-dim: 179 196 239;
+    --c-cream-faint: 125 146 200;
+
+    /* accent = near-white so pills read like Frame* */
+    --c-brass: 243 246 255;
+    --c-brass-light: 255 255 255;
+    --c-brass-dark: 201 214 255;
+
+    --c-rust: 255 106 74;
+
+    /* atmosphere */
+    --shadow-film: 3 8 30;
+    --vignette: 3 9 34;
+    --vignette-a: 0.4;
+    --scan-a: 0.06;
+    --grain-a: 0.03;
+    --grain-blend: overlay;
+    --panel-bg: 10 30 82;
+    --panel-a: 0.72;
+    --panel-shadow: 0 30px 80px -20px rgba(0, 8, 40, 0.6);
+    --img-a: 1;
+  }
+
+  /* ── LIGHT · the light table / contact sheet ──────────────────────────── */
+  :root[data-theme='light'] {
+    color-scheme: light;
+
+    --c-film-950: 232 225 210;
+    --c-film-900: 239 233 220;
+    --c-film-850: 244 239 228;
+    --c-film-800: 249 245 236;
+    --c-film-700: 213 204 186;
+    --c-film-600: 194 184 163;
+
+    --c-olive: 122 118 86;
+    --c-olive-light: 150 145 110;
+    --c-olive-dark: 92 88 62;
+
+    /* `cream` is the *ink* in light mode */
+    --c-cream: 32 28 20;
+    --c-cream-dim: 74 67 53;
+    --c-cream-faint: 118 109 91;
+
+    --c-brass: 133 104 28;
+    --c-brass-light: 163 130 46;
+    --c-brass-dark: 92 71 16;
+
+    --c-rust: 158 66 44;
+
+    --shadow-film: 249 245 236;
+    --vignette: 120 106 84;
+    --vignette-a: 0.2;
+    --scan-a: 0.05;
+    --grain-a: 0.05;
+    --grain-blend: multiply;
+    --panel-bg: 252 249 242;
+    --panel-a: 0.86;
+    --panel-shadow: 0 24px 60px -24px rgba(60, 50, 30, 0.35);
+    /* photos read as prints on a light table */
+    --img-a: 0.88;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem; /* clears the sticky nav on anchor jumps */
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-film-900 font-sans text-cream antialiased;
+    overflow-x: hidden;
+    transition: background-color 400ms ease, color 400ms ease;
+  }
+
+  ::selection {
+    background: rgb(var(--c-brass) / 0.3);
+    color: rgb(var(--c-film-950));
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--c-olive-dark));
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--c-olive));
+  }
+}
+
+@layer components {
+  /* ── Zoned palette ───────────────────────────────────────────────────────
+     The hero sets the tone (deep royal blue + white). Content breathes on a
+     light canvas with blue ink; the hero and contact stay dark anchors, so the
+     page reads dark → light → dark and the hero keeps its impact. */
+  .zone-light {
+    --ink: 15 30 82; /* deep royal-navy ink */
+    --canvas: 240 243 250; /* cool off-white (button text on ink) */
+    --accent: 42 92 240; /* electric blue — echoes the hero fragments */
+    --card-a: 0.72; /* card = white at this alpha */
+    --line-a: 0.1; /* hairline / ring = ink at this alpha */
+    --card-shadow: 0 16px 44px -24px rgb(15 30 82 / 0.34);
+  }
+  .zone-dark {
+    --ink: 255 255 255;
+    --canvas: 4 18 58;
+    --accent: 150 185 255;
+    --card-a: 0.05;
+    --line-a: 0.16;
+    --card-shadow: none;
+  }
+
+  /* Frosted surface card — flips automatically with the surrounding zone. */
+  .surface {
+    background: rgb(255 255 255 / var(--card-a));
+    box-shadow:
+      inset 0 0 0 1px rgb(var(--ink) / var(--line-a)),
+      var(--card-shadow, none);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+
+  .mono-label {
+    @apply font-mono text-[10px] uppercase tracking-[0.25em] text-cream/50;
+  }
+
+  .mono-label-sm {
+    @apply font-mono text-[9px] uppercase tracking-[0.3em] text-cream/40;
+  }
+
+  .serif {
+    @apply font-display;
+    font-optical-sizing: auto;
+  }
+
+  /* Frosted case-file panel */
+  .panel {
+    background: rgb(var(--panel-bg) / var(--panel-a));
+    backdrop-filter: blur(20px) saturate(1.1);
+    border: 1px solid rgb(var(--c-brass) / 0.18);
+    box-shadow:
+      inset 0 1px 0 0 rgb(var(--c-cream) / 0.05),
+      var(--panel-shadow);
+  }
+}
+
+@layer utilities {
+  .film-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    opacity: var(--grain-a);
+    mix-blend-mode: var(--grain-blend);
+  }
+
+  .film-vignette {
+    background:
+      radial-gradient(ellipse 75% 65% at 50% 45%, transparent 40%, rgb(var(--vignette) / var(--vignette-a)) 100%),
+      linear-gradient(rgb(var(--vignette) / 0) 50%, rgb(var(--vignette) / var(--scan-a)) 50%);
+    background-size: 100% 100%, 100% 3px;
+  }
+
+  .text-shadow-film {
+    text-shadow:
+      0 2px 30px rgb(var(--shadow-film) / 0.8),
+      0 1px 3px rgb(var(--shadow-film) / 0.7);
+  }
+
+  /* RGB split — analog film meets digital glitch */
+  .chromatic {
+    text-shadow:
+      0.016em 0 0 rgba(214, 78, 58, 0.45),
+      -0.016em 0 0 rgba(70, 168, 226, 0.34),
+      0 2px 34px rgb(var(--shadow-film) / 0.85);
+  }
+
+  .parallax {
+    transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .parallax {
+      transform: none !important;
+    }
+  }
+}
