@@ -67,7 +67,7 @@ function ScienceQuote() {
 
   const q = quotes[i]
   return (
-    <div className="block max-w-[46%] text-right sm:max-w-[260px]">
+    <div className="mb-4 block max-w-[46%] text-right sm:mb-0 sm:max-w-[260px]">
       <AnimatePresence mode="wait">
         <motion.p
           key={i}
