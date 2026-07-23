@@ -56,8 +56,7 @@ export const personal = {
   displayName: 'Lemuel Donto',
   email: 'lemueldonto@gmail.com',
   location: 'Toulouse, France',
-  // TODO(confirm): replace with your exact profile URLs
-  linkedin: 'https://www.linkedin.com/in/lemueldonto',
+  linkedin: 'https://www.linkedin.com/in/lemuel-donto/',
   github: 'https://github.com/lemueldonto',
   // Drop your PDFs at public/cv-en.pdf and public/cv-fr.pdf
   cv: { en: '/cv-en.pdf', fr: '/cv-fr.pdf' } as Record<Lang, string>,
@@ -436,12 +435,20 @@ export const projects: ProjectItem[] = [
     links: [],
     bullets: {
       en: [
-        'Architected a microservices short-term lending app — loans repaid over 3–4 monthly installments — with income analysis and a credit-scoring algorithm assessing borrower solvency.',
-        'Led architecture and DevOps on AWS: Spring Boot services, biometric KYC (Smile ID), payments (Stripe, PayPal), AWS Textract for payslip analysis, Docker Compose, and Terraform (IaC).',
+        'Architected the short-term lending app as microservices (Spring Boot) — loans repaid over 3 to 4 monthly installments.',
+        'Wrote the credit-scoring algorithm that judges a borrower’s solvency when there is no formal credit history to rely on.',
+        'AI identity verification: biometric face and ID-document analysis (Smile ID) for a KYC we can actually trust.',
+        'AI income analysis: payslips and proof-of-income documents read and extracted automatically (AWS Textract), then fed into the scoring.',
+        'Integrated payments end to end — mobile money through the Ecobank API, cards through Stripe and PayPal — for paying the loan out and collecting each monthly installment.',
+        'Own the DevOps and infrastructure on AWS: containerized with Docker Compose, provisioned as infrastructure-as-code with Terraform.',
       ],
       fr: [
-        'Architecture d’une app de crédit court terme en microservices — prêts remboursés sur 3 à 4 échéances mensuelles — avec analyse des revenus et algorithme de scoring évaluant la solvabilité de l’emprunteur.',
-        'Pilotage de l’architecture et du DevOps sur AWS : services Spring Boot, KYC biométrique (Smile ID), paiements (Stripe, PayPal), AWS Textract pour l’analyse des bulletins de salaire, Docker Compose et Terraform (IaC).',
+        'Architecture de l’app de crédit court terme en microservices (Spring Boot) — des prêts remboursés sur 3 à 4 échéances mensuelles.',
+        'J’ai écrit l’algorithme de scoring qui évalue la solvabilité de l’emprunteur, là où il n’existe aucun historique bancaire formel.',
+        'Vérification d’identité par IA : analyse biométrique du visage et des pièces d’identité (Smile ID), pour un KYC fiable.',
+        'Analyse des revenus par IA : lecture et extraction automatiques des bulletins de salaire et justificatifs (AWS Textract), qui alimentent ensuite le scoring.',
+        'Intégration des paiements de bout en bout — mobile money via l’API Ecobank, carte via Stripe et PayPal — pour le versement du prêt et le prélèvement de chaque mensualité.',
+        'Responsable du DevOps et de l’infrastructure sur AWS : conteneurisation avec Docker Compose, provisionnement en infrastructure-as-code avec Terraform.',
       ],
     },
   },
