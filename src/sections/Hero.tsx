@@ -106,12 +106,12 @@ export function Hero() {
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          background: `linear-gradient(90deg, ${BLUE} 6%, ${BLUE}d0 32%, transparent 58%), linear-gradient(0deg, #021634 12%, rgba(3,26,74,0.6) 32%, transparent 48%)`,
+          background: `linear-gradient(90deg, ${BLUE} 6%, ${BLUE}d0 32%, transparent 58%), linear-gradient(0deg, #021b4a 3%, transparent 30%)`,
         }}
       />
 
       {/* Intro + © (top spacing clears the overlaid nav) */}
-      <div className="relative z-10 flex flex-1 flex-col justify-end px-6 pb-5 md:justify-center md:px-10 md:pb-0 md:pt-24">
+      <div className="relative z-10 flex flex-1 flex-col justify-end px-6 pb-[17vh] md:justify-center md:px-10 md:pb-0 md:pt-24">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
