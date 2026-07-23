@@ -111,12 +111,12 @@ export function Hero() {
       />
 
       {/* Intro + © (top spacing clears the overlaid nav) */}
-      <div className="relative z-10 flex flex-1 flex-col justify-start px-6 pt-24 md:justify-center md:px-10">
+      <div className="relative z-10 flex flex-1 flex-col justify-center px-6 pt-24 md:px-10">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
-          className="max-w-xs text-[15px] font-medium leading-relaxed text-white/90 md:max-w-sm md:text-base"
+          className="absolute inset-x-6 top-24 max-w-xs text-[15px] font-medium leading-relaxed text-white/90 md:static md:inset-x-auto md:top-auto md:max-w-sm md:text-base"
         >
           {t(intro)}
         </motion.p>
