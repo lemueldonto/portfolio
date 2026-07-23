@@ -131,7 +131,7 @@ export const ui = {
   stats: [
     { value: '4+', label: { en: 'Years of experience', fr: 'Ans d’expérience' } as L },
     { value: '5', label: { en: 'Engineers led', fr: 'Ingénieurs encadrés' } as L },
-    { value: '2', label: { en: 'Ventures founded', fr: 'Projets fondés' } as L },
+    { value: '2', label: { en: 'Ventures live (MVP)', fr: 'Projets avec un MVP' } as L },
     { value: '2', label: { en: 'Cloud platforms (AWS · Azure)', fr: 'Clouds (AWS · Azure)' } as L },
   ],
   education: {
