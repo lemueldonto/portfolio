@@ -38,6 +38,8 @@ const PHOTOS: Record<string, string[]> = {
     '/img/novi-6.webp', // offer summary
     '/img/novi-7.webp', // funds released
     '/img/novi-8.webp', // repayment schedule
+    '/img/novi-9.webp', // pay an installment
+    '/img/novi-10.webp', // history
   ],
 }
 
