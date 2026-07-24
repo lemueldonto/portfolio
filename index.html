@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#04123a" />
     <script>
-      // Apply the stored theme before first paint (no flash).
+      // Apply the stored theme + resolve the language before first paint.
       (function () {
         try {
           var t = localStorage.getItem('portfolio.theme')
@@ -14,6 +14,24 @@
         } catch (e) {
           document.documentElement.dataset.theme = 'dark'
         }
+        try {
+          // Same rule as the React app: a stored choice wins, otherwise
+          // follow the device language (French → fr, else English).
+          var stored = localStorage.getItem('portfolio.lang')
+          var lang = stored === 'en' || stored === 'fr' ? stored : null
+          if (!lang) {
+            var langs =
+              navigator.languages && navigator.languages.length
+                ? navigator.languages
+                : [navigator.language]
+            lang = langs.some(function (l) {
+              return typeof l === 'string' && l.toLowerCase().indexOf('fr') === 0
+            })
+              ? 'fr'
+              : 'en'
+          }
+          document.documentElement.lang = lang
+        } catch (e) {}
       })()
     </script>
 
