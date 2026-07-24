@@ -18,8 +18,8 @@ export function Nav() {
   return (
     <header className="absolute inset-x-0 top-0 z-40 px-6 pt-6 text-white md:px-10 md:pt-7">
       <div className="flex items-center justify-between gap-2 sm:gap-4">
-        <a href="#top" className="flex items-center gap-2 font-sans text-lg font-bold tracking-tight sm:gap-2.5 sm:text-2xl">
-          <svg viewBox="0 0 64 64" className="h-8 w-8 shrink-0" aria-hidden="true">
+        <a href="#top" aria-label="Lemuel Donto — home" className="flex items-center">
+          <svg viewBox="0 0 64 64" className="h-9 w-9" aria-hidden="true">
             <defs>
               <linearGradient id="navAst" gradientUnits="userSpaceOnUse" x1="35" y1="22" x2="50" y2="42">
                 <stop offset="0" stopColor="#8fb0ff" />
@@ -51,7 +51,6 @@ export function Nav() {
               <circle cx="0" cy="0" r="6.6" fill="#eaf1ff" />
             </g>
           </svg>
-          <span>Donto<span className="text-white/55">*</span></span>
         </a>
 
         <nav className="hidden items-center gap-8 md:flex">

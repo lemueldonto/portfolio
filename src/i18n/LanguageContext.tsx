@@ -23,9 +23,17 @@ const LanguageContext = createContext<LanguageContextValue | null>(null)
 
 function getInitialLang(): Lang {
   if (typeof window === 'undefined') return 'en'
+  // A manual choice always wins.
   const stored = window.localStorage.getItem(STORAGE_KEY)
   if (stored === 'en' || stored === 'fr') return stored
-  return 'en' // English by default (international audience)
+  // Otherwise follow the device/browser language: French → fr, else English.
+  const nav = window.navigator
+  const preferred =
+    nav.languages && nav.languages.length ? nav.languages : [nav.language]
+  const prefersFrench = preferred.some(
+    (l) => typeof l === 'string' && l.toLowerCase().startsWith('fr'),
+  )
+  return prefersFrench ? 'fr' : 'en'
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
