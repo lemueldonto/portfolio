@@ -17,8 +17,8 @@ export function Nav() {
 
   return (
     <header className="absolute inset-x-0 top-0 z-40 px-6 pt-6 text-white md:px-10 md:pt-7">
-      <div className="flex items-center justify-between gap-4">
-        <a href="#top" className="flex items-center gap-2.5 font-sans text-2xl font-bold tracking-tight">
+      <div className="flex items-center justify-between gap-2 sm:gap-4">
+        <a href="#top" className="flex items-center gap-2 font-sans text-lg font-bold tracking-tight sm:gap-2.5 sm:text-2xl">
           <svg viewBox="0 0 64 64" className="h-8 w-8 shrink-0" aria-hidden="true">
             <defs>
               <linearGradient id="navAst" gradientUnits="userSpaceOnUse" x1="35" y1="22" x2="50" y2="42">
@@ -66,11 +66,11 @@ export function Nav() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <LanguageToggle className="hidden sm:inline-flex" />
+        <div className="flex items-center gap-2 sm:gap-3">
+          <LanguageToggle />
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-[#04205a] transition-transform hover:-translate-y-0.5"
+            className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-white px-3.5 py-2 text-[13px] font-semibold text-[#04205a] transition-transform hover:-translate-y-0.5 sm:gap-2 sm:px-5 sm:py-2.5 sm:text-sm"
           >
             {t(getInTouch)} <span aria-hidden="true">→</span>
           </a>
