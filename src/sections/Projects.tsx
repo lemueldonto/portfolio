@@ -37,6 +37,7 @@ const PHOTOS: Record<string, string[]> = {
     '/img/novi-web-1.webp', // staff web — dashboard
     '/img/novi-web-2.webp', // staff web — loan applications
     '/img/novi-web-3.webp', // staff web — borrower file & decision
+    '/img/novi-web-4.webp', // staff web — repayments tracking
   ],
 }
 
