@@ -34,7 +34,6 @@ const PHOTOS: Record<string, string[]> = {
     '/img/novi-1.webp', // onboarding — brand + value prop
     '/img/novi-2.webp', // home — quick actions & borrowing capacity
     '/img/novi-3.webp', // home — how it works & social proof
-    '/img/novi-4.webp', // onboarding — fast, flexible funding
   ],
 }
 
