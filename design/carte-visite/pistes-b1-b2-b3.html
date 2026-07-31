@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Carte de visite — Piste B affinée · Lemuel Donto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --blue-950: #04123a;
+    --canvas:   #f0f3fa;
+    --paper:    #f7f9fd;   /* le blanc du papier, légèrement plus clair que le canvas écran */
+    --ink:      #0f1e52;
+    --accent:   #2a5cf0;
+    --accent-l: #96b9ff;
+    --z: 1.7;
+    --studio: #dfe2ea;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; }
+  body {
+    margin: 0; padding: 48px 32px 96px;
+    font-family: 'Space Grotesk', system-ui, sans-serif; color: var(--ink);
+    background: radial-gradient(1200px 600px at 50% -10%, #fff, transparent 70%), var(--studio);
+  }
+  .wrap { max-width: 1240px; margin: 0 auto; }
+
+  .kicker { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .3em;
+    text-transform: uppercase; color: color-mix(in srgb, var(--ink) 45%, transparent); margin: 0 0 10px; }
+  h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -.03em; margin: 0 0 12px; }
+  .lede { max-width: 64ch; font-size: 15px; line-height: 1.6; margin: 0;
+    color: color-mix(in srgb, var(--ink) 72%, transparent); }
+  .lede + .lede { margin-top: 10px; }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 24px; }
+  .controls button, .controls label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    padding: 8px 14px; border-radius: 999px; cursor: pointer;
+    border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+    background: rgba(255,255,255,.7); color: var(--ink); transition: all .15s;
+  }
+  .controls button:hover { background: #fff; }
+  .controls button[aria-pressed="true"] { background: var(--ink); color: var(--canvas); border-color: var(--ink); }
+  .controls label { display: inline-flex; align-items: center; gap: 8px; }
+  .controls .sep { width: 1px; height: 20px; background: color-mix(in srgb, var(--ink) 14%, transparent); margin: 0 6px; }
+
+  section { margin-top: 72px; }
+  .head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 6px; }
+  .tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .28em;
+    text-transform: uppercase; color: var(--accent); }
+  .reco { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+    background: var(--ink); color: var(--canvas); padding: 4px 10px; border-radius: 999px; }
+  h2 { font-size: 24px; font-weight: 600; letter-spacing: -.02em; margin: 0; }
+  .note { max-width: 70ch; font-size: 14px; line-height: 1.62; margin: 8px 0 28px;
+    color: color-mix(in srgb, var(--ink) 66%, transparent); }
+  .note b { color: var(--ink); font-weight: 500; }
+
+  .pair { display: flex; gap: 44px; flex-wrap: wrap; align-items: flex-start; }
+  .slot { display: flex; flex-direction: column; gap: 10px; }
+  .cap { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: .28em;
+    text-transform: uppercase; color: color-mix(in srgb, var(--ink) 40%, transparent); }
+
+  /* ── Carte : 85 × 55 mm ; tout l’intérieur en mm via --mm ───────────── */
+  .card {
+    --mm: calc(1mm * var(--z));
+    position: relative; width: calc(85 * var(--mm)); height: calc(55 * var(--mm));
+    border-radius: calc(1.6 * var(--mm)); overflow: hidden; flex: none;
+    font-family: 'Space Grotesk', sans-serif;
+    box-shadow: 0 24px 60px -22px rgba(10,20,60,.45), 0 2px 6px rgba(10,20,60,.12);
+  }
+  .card.dark  { background: var(--blue-950); color: #fff; }
+  .card.light { background: var(--paper); color: var(--ink); }
+  .card.dark::before { content:''; position:absolute; inset:0; pointer-events:none;
+    background: radial-gradient(120% 90% at 80% -12%, rgba(120,160,255,.20), transparent 62%); }
+  .grain { position:absolute; inset:0; pointer-events:none; opacity:.035; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  .guides { position:absolute; inset:0; pointer-events:none; display:none; }
+  body.show-guides .guides { display:block; }
+  .guides .safe { position:absolute; inset: calc(4 * var(--mm)); outline: 1px dashed rgba(255,90,60,.75); }
+  .guides .trim { position:absolute; inset:0; outline: 1px solid rgba(255,90,60,.35); }
+
+  /* ── Primitives ─────────────────────────────────────────────────────── */
+  .pad { position:absolute; inset: calc(6 * var(--mm)); display:flex; flex-direction:column; }
+  .spacer { flex: 1; }
+  /* 2,1 mm ≈ 6 pt : plancher de lisibilité en impression pour du mono capitales */
+  .mono { font-family:'JetBrains Mono', monospace; font-size: calc(2.1 * var(--mm));
+    letter-spacing: .2em; text-transform: uppercase; }
+  .mono-s { font-family:'JetBrains Mono', monospace; font-size: calc(1.95 * var(--mm));
+    letter-spacing: .18em; text-transform: uppercase; }
+  .rule { height: 1px; background: currentColor; opacity: .14; }
+  .row { display:flex; align-items:center; gap: calc(2 * var(--mm)); }
+  .ico { width: calc(2.9 * var(--mm)); height: calc(2.9 * var(--mm)); flex:none; }
+  .val { font-size: calc(2.55 * var(--mm)); letter-spacing: -.005em; font-variant-numeric: tabular-nums; }
+  .qr { width: calc(15 * var(--mm)); height: calc(15 * var(--mm)); display:block; }
+  .qr-panel { background: var(--paper); padding: calc(1.3 * var(--mm)); border-radius: calc(1.2 * var(--mm)); line-height:0; }
+
+  .name { font-weight: 600; letter-spacing: -.034em; line-height: .94; }
+  .quote { font-family:'Fraunces', Georgia, serif; font-style: italic; font-weight: 300;
+    font-size: calc(4.1 * var(--mm)); line-height: 1.24; letter-spacing: -.012em; }
+
+  /* ── B1 · Arête ─────────────────────────────────────────────────────── */
+  .spine { position:absolute; top:0; right:0; bottom:0; width: calc(7 * var(--mm));
+    background: var(--accent); display:flex; align-items:center; justify-content:center; }
+  .spine span { writing-mode: vertical-rl; transform: rotate(180deg);
+    font-family:'JetBrains Mono', monospace; font-size: calc(2.05 * var(--mm));
+    letter-spacing: .3em; text-transform: uppercase; color: #fff; opacity:.92; }
+  .mark { position:relative; width: calc(8.2 * var(--mm)); height: calc(8.2 * var(--mm));
+    border-radius: calc(1.5 * var(--mm)); background: var(--ink); color: var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    font-weight: 700; font-size: calc(3.3 * var(--mm)); letter-spacing: -.03em; }
+  .mark i { position:absolute; top: calc(-.5 * var(--mm)); right: calc(-.5 * var(--mm));
+    width: calc(2 * var(--mm)); height: calc(2 * var(--mm)); border-radius:999px;
+    background: var(--accent); box-shadow: 0 0 0 calc(.55 * var(--mm)) var(--paper); }
+  .tick { width: calc(.9 * var(--mm)); background: var(--accent); border-radius:999px; align-self: stretch; }
+
+  /* ── B2 · Grille ────────────────────────────────────────────────────── */
+  .topo { position:absolute; pointer-events:none; }
+  .kv { display:grid; grid-template-columns: calc(11 * var(--mm)) 1fr; row-gap: calc(1.5 * var(--mm)); align-items:baseline; }
+  .kv .k { font-family:'JetBrains Mono', monospace; font-size: calc(1.95 * var(--mm)); letter-spacing:.2em;
+    text-transform:uppercase; opacity:.45; }
+  .kv .v { font-size: calc(2.5 * var(--mm)); letter-spacing:-.005em; font-variant-numeric: tabular-nums; }
+  .ruler { display:flex; align-items:flex-end; gap: calc(1.2 * var(--mm)); height: calc(2 * var(--mm)); opacity:.28; }
+  .ruler i { width:1px; background: currentColor; height: 45%; }
+  .ruler i:nth-child(5n+1) { height: 100%; }
+
+  /* ── B3 · Tranche ───────────────────────────────────────────────────── */
+  .edge-stack { position: relative; padding-bottom: calc(2.2 * var(--mm)); }
+  .edge-stack .card { position: relative; z-index: 2; }
+  .edge-stack .edge {
+    position:absolute; left: calc(1.4 * var(--mm)); right: calc(1.4 * var(--mm));
+    bottom: 0; height: calc(2.6 * var(--mm));
+    background: linear-gradient(180deg, var(--accent), #1d47c8);
+    border-radius: 0 0 calc(1.4 * var(--mm)) calc(1.4 * var(--mm));
+    box-shadow: 0 10px 22px -10px rgba(20,50,160,.7); z-index: 1;
+  }
+  .underline-accent { height: calc(.9 * var(--mm)); background: var(--accent); border-radius: 999px; }
+
+  .op-70{opacity:.7} .op-55{opacity:.55} .op-45{opacity:.45} .op-40{opacity:.4} .op-90{opacity:.9}
+
+  .panel { margin-top: 84px; background: rgba(255,255,255,.74); border-radius: 20px; padding: 32px 36px;
+    box-shadow: inset 0 0 0 1px rgba(15,30,82,.10), 0 16px 44px -24px rgba(15,30,82,.34); }
+  .panel h3 { font-size: 17px; font-weight: 600; margin: 0 0 6px; letter-spacing: -.01em; }
+  .panel p, .panel li { font-size: 14px; line-height: 1.62; color: color-mix(in srgb, var(--ink) 74%, transparent); }
+  .panel ul { padding-left: 18px; margin: 8px 0 0; }
+  .panel li { margin-bottom: 7px; }
+  .panel .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 34px; }
+  .flag { color:#b4451f; font-weight:500; }
+  code { font-family:'JetBrains Mono', monospace; font-size:.92em; background: rgba(15,30,82,.07); padding:1px 5px; border-radius:4px; }
+</style>
+</head>
+<body>
+
+<svg style="position:absolute;width:0;height:0" aria-hidden="true">
+  <symbol id="qr" viewBox="0 0 33 33" shape-rendering="crispEdges">
+    <path fill="#ffffff" d="M0 0h33v33H0z"/>
+    <path stroke="#0f1e52" d="M4 4.5h7m3 0h2m2 0h1m1 0h1m1 0h7M4 5.5h1m5 0h1m2 0h1m1 0h2m1 0h2m2 0h1m5 0h1M4 6.5h1m1 0h3m1 0h1m1 0h1m2 0h2m3 0h1m1 0h1m1 0h3m1 0h1M4 7.5h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h2m3 0h1m1 0h3m1 0h1M4 8.5h1m1 0h3m1 0h1m1 0h1m1 0h4m2 0h1m1 0h1m1 0h3m1 0h1M4 9.5h1m5 0h1m1 0h1m1 0h1m2 0h4m1 0h1m5 0h1M4 10.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M12 11.5h1m1 0h1m1 0h1m1 0h1m1 0h1M4 12.5h1m1 0h5m4 0h1m1 0h1m4 0h5M4 13.5h4m4 0h2m2 0h2m2 0h1m2 0h1m3 0h1M4 14.5h5m1 0h4m1 0h1m1 0h3m1 0h2m2 0h1m1 0h2M6 15.5h3m4 0h2m4 0h6m3 0h1M4 16.5h3m1 0h1m1 0h3m3 0h4m1 0h2m1 0h1m1 0h3M4 17.5h2m1 0h3m1 0h1m1 0h1m6 0h1m2 0h1m1 0h1m1 0h1M4 18.5h1m3 0h1m1 0h1m1 0h1m1 0h4m1 0h1m1 0h1m1 0h3m1 0h2M4 19.5h1m1 0h1m1 0h1m2 0h2m2 0h1m2 0h7m3 0h1M4 20.5h1m1 0h2m2 0h4m1 0h1m1 0h2m1 0h5m1 0h1M12 21.5h3m1 0h2m1 0h2m3 0h2M4 22.5h7m6 0h2m1 0h1m1 0h1m1 0h1m1 0h3M4 23.5h1m5 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m3 0h2m1 0h1M4 24.5h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h9m1 0h3M4 25.5h1m1 0h3m1 0h1m1 0h1m4 0h1m3 0h2m1 0h5M4 26.5h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m2 0h1m3 0h2m1 0h1M4 27.5h1m5 0h1m4 0h1m2 0h8m2 0h1M4 28.5h7m1 0h2m1 0h2m4 0h8"/>
+  </symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 6.5h18v11H3zM3.5 7l8.5 6 8.5-6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3c0 1-.8 1.8-1.8 1.7C10.6 19.9 4.1 13.4 3.3 5.3 3.2 4.3 4 3.5 5 3.5z"/></symbol>
+  <symbol id="i-in" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 8.8h3.1V20H4.5zM6 3.6a1.9 1.9 0 1 1 0 3.8 1.9 1.9 0 0 1 0-3.8zM10 8.8h3v1.6c.6-1 1.8-1.9 3.6-1.9 2.7 0 3.9 1.7 3.9 4.6V20h-3.1v-6c0-1.7-.6-2.6-2-2.6-1.3 0-2.2.9-2.2 2.6v6H10z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.8" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" d="M3.2 12h17.6M12 3.2c4.5 5 4.5 12.6 0 17.6-4.5-5-4.5-12.6 0-17.6z"/></symbol>
+
+  <!-- motif topologie : nœuds + liens, la signature « systèmes distribués » -->
+  <symbol id="topo" viewBox="0 0 100 100">
+    <g fill="none" stroke="currentColor" stroke-width="1.1">
+      <path d="M18 22 L52 12 M52 12 L86 30 M18 22 L34 56 M34 56 L52 12 M34 56 L72 62 M72 62 L86 30 M34 56 L26 90 M72 62 L64 92 M26 90 L64 92"/>
+    </g>
+    <g fill="currentColor">
+      <circle cx="18" cy="22" r="3.4"/><circle cx="52" cy="12" r="2.4"/><circle cx="86" cy="30" r="2.4"/>
+      <circle cx="34" cy="56" r="4.6"/><circle cx="72" cy="62" r="3.4"/>
+      <circle cx="26" cy="90" r="2.4"/><circle cx="64" cy="92" r="2.4"/>
+    </g>
+  </symbol>
+</svg>
+
+<div class="wrap">
+
+<header>
+  <p class="kicker">Design · étape 2 — piste B affinée</p>
+  <h1>Table lumineuse — trois exécutions</h1>
+  <p class="lede">
+    Même parti pris qu’en B : recto clair, encre bleu-navy, bleu électrique en accent, verso bleu profond.
+    Ce qui change ici, c’est l’exécution — un geste fort par version, une vraie grille, et la micro-typo
+    remontée au plancher d’impression (mono à 6 pt minimum, chiffres tabulaires, marges optiques).
+  </p>
+  <p class="lede">
+    Le QR est réel (<b>lemueldonto.com</b>). Format 85 × 55 mm.
+  </p>
+  <div class="controls">
+    <button data-zoom="1" aria-pressed="false">Taille réelle</button>
+    <button data-zoom="1.7" aria-pressed="true">×1,7</button>
+    <button data-zoom="2.4" aria-pressed="false">×2,4</button>
+    <span class="sep"></span>
+    <label><input type="checkbox" id="guides" /> Repères (coupe + zone de sécurité)</label>
+  </div>
+</header>
+
+<!-- ═══════════════════ B1 · ARÊTE ═══════════════════ -->
+<section>
+  <div class="head">
+    <span class="tag">B1</span><h2>Arête</h2><span class="reco">Ma reco</span>
+  </div>
+  <p class="note">
+    L’évolution directe de ce que tu as choisi. L’arête bleue passe de 2,6 à 7 mm et devient
+    <b>porteuse</b> : l’URL y court à la verticale en blanc — on lit <b>lemueldonto.com</b> même quand la carte
+    est rangée dans un porte-cartes, tranche visible. Le monogramme garde son point d’accent (le même
+    « voyant » que la pastille du hero). Le nom passe sur deux lignes, calé sur une grille de 2,4 mm,
+    avec un filet d’accent à gauche qui l’ancre.
+  </p>
+
+  <div class="pair">
+    <div class="slot">
+      <div class="card light">
+        <div class="pad" style="right: calc(12 * var(--mm))">
+          <div style="display:flex; align-items:flex-start; justify-content:space-between">
+            <div class="mark">LD<i></i></div>
+            <span class="mono-s op-40" style="margin-top: calc(1 * var(--mm))">Toulouse · FR</span>
+          </div>
+          <div class="spacer"></div>
+          <div style="display:flex; gap: calc(2.6 * var(--mm))">
+            <div class="tick"></div>
+            <div>
+              <div class="name" style="font-size: calc(7.4 * var(--mm))">Lemuel<br/>Donto</div>
+              <div style="font-size: calc(2.9 * var(--mm)); font-weight:500; color: var(--accent); margin-top: calc(2.2 * var(--mm))">
+                Lead Software Engineer
+              </div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+          <div class="rule"></div>
+          <div class="mono-s op-45" style="margin-top: calc(2.2 * var(--mm))">Full-Stack · Cloud · Systèmes distribués</div>
+        </div>
+        <div class="spine"><span>lemueldonto.com</span></div>
+        <div class="guides"><div class="trim"></div><div class="safe"></div></div>
+      </div>
+      <span class="cap">Recto</span>
+    </div>
+
+    <div class="slot">
+      <div class="card dark">
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="quote op-90">J’architecture des systèmes<br/>distribués — et je pilote<br/>les équipes qui les livrent.</div>
+          <div class="spacer"></div>
+          <div class="rule" style="margin-bottom: calc(3.2 * var(--mm))"></div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-end">
+            <div style="display:flex; flex-direction:column; gap: calc(1.8 * var(--mm))">
+              <div class="row"><svg class="ico" style="color:var(--accent-l)"><use href="#i-mail"/></svg><span class="val">lemueldonto@gmail.com</span></div>
+              <div class="row"><svg class="ico" style="color:var(--accent-l)"><use href="#i-phone"/></svg><span class="val">+33 6 00 00 00 00</span></div>
+              <div class="row"><svg class="ico" style="color:var(--accent-l)"><use href="#i-in"/></svg><span class="val">linkedin.com/in/lemuel-donto</span></div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap: calc(1.2 * var(--mm))">
+              <div class="qr-panel"><svg class="qr"><use href="#qr"/></svg></div>
+              <span class="mono-s op-45" style="letter-spacing:.16em">Portfolio</span>
+            </div>
+          </div>
+        </div>
+        <div class="guides"><div class="trim"></div><div class="safe"></div></div>
+      </div>
+      <span class="cap">Verso</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ B2 · GRILLE ═══════════════════ -->
+<section>
+  <div class="head"><span class="tag">B2</span><h2>Grille · topologie</h2></div>
+  <p class="note">
+    Ici l’accent ne se contente pas de décorer : le recto porte une <b>topologie de nœuds</b> — un système
+    distribué dessiné au filet, à 14 % d’opacité. C’est ton métier, littéralement, en filigrane. Le bas
+    de carte reprend une réglette de repères (le vocabulaire de l’ingénieur, pas du graphiste).
+    Le verso devient une fiche : clés en mono, valeurs alignées sur une seule colonne.
+  </p>
+
+  <div class="pair">
+    <div class="slot">
+      <div class="card light">
+        <svg class="topo" style="color: var(--accent); opacity:.14; width: calc(34 * var(--mm)); height: calc(34 * var(--mm)); right: calc(2 * var(--mm)); top: calc(3 * var(--mm))"><use href="#topo"/></svg>
+        <div class="pad">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start">
+            <span class="mono-s" style="color:var(--accent)">Lead Software Engineer</span>
+          </div>
+          <div class="spacer"></div>
+          <div class="name" style="font-size: calc(8.2 * var(--mm))">Lemuel<br/>Donto</div>
+          <div class="spacer"></div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-end">
+            <div>
+              <div class="ruler" style="margin-bottom: calc(2 * var(--mm))">
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <div class="mono-s op-45">Full-Stack · Cloud · Systèmes distribués</div>
+            </div>
+            <span class="mono-s op-40">Toulouse · FR</span>
+          </div>
+        </div>
+        <div class="guides"><div class="trim"></div><div class="safe"></div></div>
+      </div>
+      <span class="cap">Recto</span>
+    </div>
+
+    <div class="slot">
+      <div class="card dark">
+        <div class="grain"></div>
+        <svg class="topo" style="color: var(--accent-l); opacity:.16; width: calc(30 * var(--mm)); height: calc(30 * var(--mm)); right: calc(-4 * var(--mm)); bottom: calc(-4 * var(--mm))"><use href="#topo"/></svg>
+        <div class="pad">
+          <span class="mono-s" style="color: var(--accent-l)">Contact</span>
+          <div class="rule" style="margin: calc(2.6 * var(--mm)) 0 calc(3 * var(--mm))"></div>
+          <div class="kv">
+            <span class="k">Mail</span><span class="v">lemueldonto@gmail.com</span>
+            <span class="k">Tél</span><span class="v">+33 6 00 00 00 00</span>
+            <span class="k">Web</span><span class="v">lemueldonto.com</span>
+            <span class="k">LinkedIn</span><span class="v">in/lemuel-donto</span>
+            <span class="k">GitHub</span><span class="v">lemueldonto</span>
+          </div>
+          <div class="spacer"></div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-end">
+            <span class="mono-s op-45">Komlan Lemuel Donto</span>
+            <div class="qr-panel"><svg class="qr" style="width: calc(14 * var(--mm)); height: calc(14 * var(--mm))"><use href="#qr"/></svg></div>
+          </div>
+        </div>
+        <div class="guides"><div class="trim"></div><div class="safe"></div></div>
+      </div>
+      <span class="cap">Verso</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ B3 · TRANCHE ═══════════════════ -->
+<section>
+  <div class="head"><span class="tag">B3</span><h2>Tranche peinte</h2></div>
+  <p class="note">
+    Le luxe par la soustraction. Le recto ne porte plus <b>que</b> le nom, un filet d’accent et le rôle —
+    rien d’autre, énormément de blanc. Le bleu ne s’imprime pas : il est <b>peint sur la tranche</b> du papier
+    (400 g, tranche bleu électrique). De face on ne voit presque rien ; de trois quarts, la carte est une
+    ligne bleue. C’est la finition qu’on remarque à la main, pas à l’œil — la plus chère aussi (~+40 %).
+    Simulation de la tranche sous la carte ci-dessous.
+  </p>
+
+  <div class="pair">
+    <div class="slot">
+      <div class="edge-stack">
+        <div class="card light">
+          <div class="pad" style="inset: calc(8 * var(--mm))">
+            <div class="spacer"></div>
+            <div class="name" style="font-size: calc(9 * var(--mm))">Lemuel Donto</div>
+            <div class="underline-accent" style="width: calc(14 * var(--mm)); margin: calc(3.4 * var(--mm)) 0"></div>
+            <div class="mono op-55">Lead Software Engineer</div>
+            <div class="spacer"></div>
+          </div>
+          <div class="guides"><div class="trim"></div><div class="safe"></div></div>
+        </div>
+        <div class="edge"></div>
+      </div>
+      <span class="cap">Recto — tranche bleue simulée</span>
+    </div>
+
+    <div class="slot">
+      <div class="edge-stack">
+        <div class="card dark">
+          <div class="grain"></div>
+          <div class="pad">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start">
+              <span class="mono-s op-55">Komlan Lemuel Donto</span>
+              <span class="mono-s op-40">Toulouse · FR</span>
+            </div>
+            <div class="spacer"></div>
+            <div class="quote op-90" style="font-size: calc(3.8 * var(--mm))">J’architecture des systèmes distribués<br/>— et je pilote les équipes qui les livrent.</div>
+            <div class="spacer"></div>
+            <div style="display:flex; justify-content:space-between; align-items:flex-end">
+              <div style="display:flex; flex-direction:column; gap: calc(1.7 * var(--mm))">
+                <div class="row"><svg class="ico" style="color:var(--accent-l)"><use href="#i-mail"/></svg><span class="val">lemueldonto@gmail.com</span></div>
+                <div class="row"><svg class="ico" style="color:var(--accent-l)"><use href="#i-phone"/></svg><span class="val">+33 6 00 00 00 00</span></div>
+                <div class="row"><svg class="ico" style="color:var(--accent-l)"><use href="#i-globe"/></svg><span class="val">lemueldonto.com</span></div>
+              </div>
+              <div class="qr-panel"><svg class="qr" style="width: calc(14 * var(--mm)); height: calc(14 * var(--mm))"><use href="#qr"/></svg></div>
+            </div>
+          </div>
+          <div class="guides"><div class="trim"></div><div class="safe"></div></div>
+        </div>
+        <div class="edge"></div>
+      </div>
+      <span class="cap">Verso</span>
+    </div>
+  </div>
+</section>
+
+<div class="panel">
+  <div class="grid">
+    <div>
+      <h3>Ce qui a été corrigé depuis le premier jet</h3>
+      <ul>
+        <li><b>Micro-typo</b> — le mono était à 5 pt (illisible imprimé). Remonté à 6 pt minimum, tracking réduit en conséquence.</li>
+        <li><b>Chiffres tabulaires</b> sur le téléphone : les chiffres s’alignent, le numéro se lit en un bloc.</li>
+        <li><b>Grille</b> — tout est calé sur un rythme vertical de 2,4 mm au lieu d’être posé à l’œil.</li>
+        <li><b>Le blanc du papier</b> (<code>#f7f9fd</code>) au lieu du canvas écran : à l’impression, le canvas plus gris salissait la carte.</li>
+        <li><b>L’accent porte quelque chose</b> — URL sur l’arête (B1), topologie (B2), tranche (B3) — au lieu d’un rectangle décoratif.</li>
+        <li><b>Contacts allégés</b> — 3 lignes au verso plutôt que 5. Une carte n’est pas un annuaire : le QR fait le reste.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Encore à trancher</h3>
+      <ul>
+        <li><span class="flag">Téléphone</span> — toujours en placeholder <code>+33 6 00 00 00 00</code>. Donne-moi le vrai, ou on le retire (le QR + mail suffisent).</li>
+        <li><span class="flag">Langue</span> — français ici, titre en anglais. Tout-anglais possible vu l’international.</li>
+        <li><span class="flag">GitHub</span> — je l’ai gardé seulement en B2. À remettre partout si tu la donnes surtout en contexte tech.</li>
+      </ul>
+      <h3 style="margin-top:22px">Finitions selon la version</h3>
+      <ul>
+        <li><b>B1</b> — 400 g mat + vernis sélectif sur l’arête bleue (elle accroche la lumière). Coût standard.</li>
+        <li><b>B2</b> — 400 g mat, la topologie en trame fine ; éventuellement gaufrage à sec sur les nœuds.</li>
+        <li><b>B3</b> — 600 g (le papier doit être épais pour que la tranche existe) + tranche peinte. Le plus cher, le plus mémorable à la main.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('.controls button[data-zoom]')
+  buttons.forEach(b => b.addEventListener('click', () => {
+    document.documentElement.style.setProperty('--z', b.dataset.zoom)
+    buttons.forEach(o => o.setAttribute('aria-pressed', String(o === b)))
+  }))
+  document.getElementById('guides').addEventListener('change', e => {
+    document.body.classList.toggle('show-guides', e.target.checked)
+  })
+</script>
+</body>
+</html>
