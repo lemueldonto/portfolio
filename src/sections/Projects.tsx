@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { useReducedMotion } from 'framer-motion'
 import { useLang } from '../i18n/LanguageContext'
 import { projects, type L } from '../content/site'
 import { Section, Chip, Label, Pill } from './Section'
-import { Reveal } from '../components/motion'
+import { Reveal, useSafeReducedMotion } from '../components/motion'
 import { ArrowUpRight } from '../components/icons'
 
 const title: L = { en: 'Projects', fr: 'Projets' }
@@ -54,7 +53,7 @@ const Chevron = ({ dir }: { dir: 'left' | 'right' }) => (
  */
 function Carousel({ images }: { images: string[] }) {
   const ref = useRef<HTMLDivElement>(null)
-  const reduce = useReducedMotion()
+  const reduce = useSafeReducedMotion()
   const [open, setOpen] = useState<number | null>(null)
 
   const step = (dir: 1 | -1) => {

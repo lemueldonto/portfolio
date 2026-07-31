@@ -1,4 +1,4 @@
-import { forwardRef, useRef, type ReactNode } from 'react'
+import { forwardRef, useEffect, useRef, useState, type ReactNode } from 'react'
 import {
   motion,
   useReducedMotion,
@@ -10,6 +10,21 @@ import {
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
+/**
+ * Framer's `useReducedMotion` reads `matchMedia` during the very first client
+ * render but is always `null` on the server, so on a prerendered page it
+ * desyncs the markup React is hydrating against. This defers the real value by
+ * one render: the first pass matches the server, the effect then applies the
+ * user's actual preference. Use this instead of the Framer hook anywhere the
+ * value influences what gets rendered.
+ */
+export function useSafeReducedMotion(): boolean {
+  const reduce = useReducedMotion()
+  const [hydrated, setHydrated] = useState(false)
+  useEffect(() => setHydrated(true), [])
+  return hydrated && !!reduce
+}
+
 /** Fade + rise into view once. */
 interface RevealProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
   children: ReactNode
@@ -20,7 +35,7 @@ export const Reveal = forwardRef<HTMLDivElement, RevealProps>(function Reveal(
   { children, delay = 0, y = 30, ...rest },
   ref,
 ) {
-  const reduce = useReducedMotion()
+  const reduce = useSafeReducedMotion()
   return (
     <motion.div
       ref={ref}
@@ -45,7 +60,7 @@ export function MaskReveal({
   delay?: number
   className?: string
 }) {
-  const reduce = useReducedMotion()
+  const reduce = useSafeReducedMotion()
   if (reduce) return <div className={className}>{children}</div>
   return (
     <span className={`inline-block overflow-hidden ${className}`}>
@@ -86,7 +101,7 @@ export function Parallax({
   className?: string
 }) {
   const ref = useRef<HTMLDivElement>(null)
-  const reduce = useReducedMotion()
+  const reduce = useSafeReducedMotion()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], [amount, -amount])
   return (
