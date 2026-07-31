@@ -21,11 +21,16 @@ interface LanguageContextValue {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
-function getInitialLang(): Lang {
-  if (typeof window === 'undefined') return 'en'
-  // A manual choice always wins.
-  const stored = window.localStorage.getItem(STORAGE_KEY)
-  if (stored === 'en' || stored === 'fr') return stored
+/** The reader's language, or null when there's no browser to ask. */
+function preferredLang(): Lang | null {
+  if (typeof window === 'undefined') return null
+  try {
+    // A manual choice always wins.
+    const stored = window.localStorage.getItem(STORAGE_KEY)
+    if (stored === 'en' || stored === 'fr') return stored
+  } catch {
+    /* private mode — fall through to the device language */
+  }
   // Otherwise follow the device/browser language: French → fr, else English.
   const nav = window.navigator
   const preferred =
@@ -36,8 +41,24 @@ function getInitialLang(): Lang {
   return prefersFrench ? 'fr' : 'en'
 }
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(getInitialLang)
+export function LanguageProvider({
+  children,
+  initialLang = 'en', // what the page was prerendered in
+}: {
+  children: ReactNode
+  initialLang?: Lang
+}) {
+  // The first render must reproduce the prerendered markup exactly, so it can
+  // only use `initialLang` — reading localStorage or navigator.languages here
+  // would make a French reader's first render disagree with the English HTML
+  // React is hydrating against, and every string on the page would mismatch.
+  // The real preference is applied just below, once hydration is done.
+  const [lang, setLangState] = useState<Lang>(initialLang)
+
+  useEffect(() => {
+    const preferred = preferredLang()
+    if (preferred && preferred !== initialLang) setLangState(preferred)
+  }, [initialLang])
 
   const setLang = useCallback((next: Lang) => {
     setLangState(next)

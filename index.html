@@ -44,6 +44,23 @@
     <link rel="canonical" href="https://lemueldonto.com/" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 
+    <!--
+      The page ships prerendered, so it reads with JavaScript switched off. The
+      entry animations start at opacity:0 and are only cleared by Framer Motion,
+      which never runs without JS — so reveal them for those readers. Scoped to
+      `opacity:0` exactly (`;` or end of attribute) so a genuine `opacity:0.5`
+      is never caught.
+    -->
+    <noscript>
+      <style>
+        [style*='opacity:0;'],
+        [style$='opacity:0'] {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
+
     <!-- Open Graph / social sharing -->
     <meta property="og:type" content="profile" />
     <meta property="profile:first_name" content="Lemuel" />
@@ -75,7 +92,7 @@
         "url": "https://lemueldonto.com/",
         "image": "https://lemueldonto.com/og-image.png",
         "jobTitle": "Lead Software Engineer",
-        "description": "Lead Software Engineer building real-time distributed microservices in Go, Java and Spring Boot on AWS.",
+        "description": "Lead Software Engineer building real-time distributed microservices in Go, Java and Spring Boot on AWS. Leads the team behind GLS's Out-of-Home locker platform, which moves around 350,000 parcels a day.",
         "email": "mailto:lemueldonto@gmail.com",
         "worksFor": { "@type": "Organization", "name": "GLS — General Logistics Systems" },
         "alumniOf": {
@@ -87,8 +104,10 @@
           "addressLocality": "Toulouse",
           "addressCountry": "FR"
         },
+        "knowsLanguage": ["Ewe", "French", "English"],
         "knowsAbout": [
           "Distributed Systems",
+          "Event-Driven Architecture",
           "Microservices",
           "Go",
           "Java",
@@ -96,7 +115,8 @@
           "Apache Kafka",
           "AWS",
           "Terraform",
-          "Kubernetes"
+          "Kubernetes",
+          "PostgreSQL"
         ],
         "sameAs": [
           "https://www.linkedin.com/in/lemuel-donto/",
@@ -114,21 +134,9 @@
     />
   </head>
   <body>
+    <!-- Populated at build time by scripts/prerender.mjs — the whole site is
+         in here as static HTML, so it reads with JavaScript switched off. -->
     <div id="root"></div>
-    <noscript>
-      <h1>Komlan Lemuel Donto — Lead Software Engineer</h1>
-      <p>
-        Lemuel Donto is a Lead Software Engineer based in Toulouse, France, building
-        real-time distributed microservices in Go, Java and Spring Boot on AWS. He leads
-        engineering at GLS and founds his own products, including the Asiganme marketplace
-        and the Novi lending app.
-      </p>
-      <p>
-        <a href="https://www.linkedin.com/in/lemuel-donto/">LinkedIn</a> ·
-        <a href="https://github.com/lemueldonto">GitHub</a> ·
-        <a href="mailto:lemueldonto@gmail.com">lemueldonto@gmail.com</a>
-      </p>
-    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

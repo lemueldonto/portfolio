@@ -6,7 +6,7 @@
   "description": "Futuristic 3D portfolio of Komlan Lemuel Donto — Lead Software Engineer, distributed systems.",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "lint": "eslint ."
   },
