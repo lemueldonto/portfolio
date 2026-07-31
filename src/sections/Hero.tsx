@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useSafeReducedMotion } from '../components/motion'
 import { useLang } from '../i18n/LanguageContext'
 import { personal, type L } from '../content/site'
 
@@ -10,6 +11,15 @@ const PANEL_BG =
 const intro: L = {
   en: 'Real-time. Distributed. In production. From architecture to the team that ships it.',
   fr: 'Temps réel. Distribué. En production. De l’architecture à l’équipe qui livre.',
+}
+
+// The page's actual <h1>. The giant DONTO wordmark below is a logotype — it
+// carries no information for a crawler or a screen reader, so the heading that
+// states what I do lives here instead, read by both and unseen by neither
+// design nor layout.
+const headline: L = {
+  en: 'I build real-time distributed systems. The one I lead moves 350,000 parcels a day.',
+  fr: 'Je construis des systèmes distribués temps réel. Celui que je pilote achemine 350 000 colis par jour.',
 }
 
 // Science epigraphs that quietly cycle where the role tag used to sit.
@@ -56,7 +66,7 @@ const EASE = [0.22, 1, 0.36, 1] as const
 /** Right-aligned science epigraph that fades from one quote to the next. */
 function ScienceQuote() {
   const { t } = useLang()
-  const reduce = useReducedMotion()
+  const reduce = useSafeReducedMotion()
   const [i, setI] = useState(0)
 
   useEffect(() => {
@@ -93,6 +103,7 @@ export function Hero() {
 
   return (
     <section id="top" className="relative flex min-h-[100svh] flex-col overflow-hidden text-white" style={{ background: PANEL_BG }}>
+      <h1 className="sr-only">{t(headline)}</h1>
       {/* Character */}
       <motion.img
         src="/img/hero-clean.webp"
@@ -138,7 +149,9 @@ export function Hero() {
           </span>
           <ScienceQuote />
         </div>
-        <motion.h1
+        {/* Logotype, not a heading — the name is announced by the badge above. */}
+        <motion.div
+          aria-hidden="true"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: EASE }}
@@ -146,7 +159,7 @@ export function Hero() {
           style={{ fontSize: 'clamp(5rem, 27vw, 26rem)' }}
         >
           DONTO<span className="align-top text-[0.42em] text-white/70">*</span>
-        </motion.h1>
+        </motion.div>
       </div>
     </section>
   )
