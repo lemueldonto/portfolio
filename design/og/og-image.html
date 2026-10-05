@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>OG image — Lemuel Donto</title>
+<!-- Source of public/og-image.png (link previews: LinkedIn, Slack, X…).
+     Rendered at 1200 × 630 CSS px with a device scale factor of 2 → 2400 × 1260 PNG.
+     See design/og/README.md for the command. -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0c2a7c;        /* sampled from the hero photo backdrop */
+    --bg-deep: #081d5c;
+    --ink: #ffffff;
+    --soft: #c9d6ff;
+    --muted: #8ea6f2;
+    --accent: #2a5cf0;    /* electric blue, same as the site and the CV */
+    --sans: 'Space Grotesk', 'Segoe UI', Arial, sans-serif;
+    --mono: 'JetBrains Mono', Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    position: relative;
+    font-family: var(--sans);
+    color: var(--ink);
+    background:
+      radial-gradient(120% 140% at 85% 30%, #133a99 0%, var(--bg) 45%, var(--bg-deep) 100%);
+  }
+
+  /* Portrait on the right, fading into the backdrop on its left edge. */
+  .portrait {
+    position: absolute;
+    top: 0; right: 0;
+    width: 560px; height: 630px;
+    background: url('../../public/img/hero-clean.webp') no-repeat;
+    background-size: 640px auto;
+    background-position: 50% 18%;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 34%);
+            mask-image: linear-gradient(to right, transparent 0%, #000 34%);
+  }
+
+  .content {
+    position: absolute;
+    left: 72px; top: 0; bottom: 0;
+    width: 640px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .eyebrow {
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--mono);
+    font-size: 19px;
+    color: var(--soft);
+    letter-spacing: 0.04em;
+  }
+  .eyebrow .tick { width: 6px; height: 34px; background: var(--accent); border-radius: 1px; box-shadow: 0 0 0 1px rgba(255,255,255,.08); }
+
+  h1 {
+    margin-top: 22px;
+    font-size: 76px;
+    line-height: 0.98;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .role {
+    margin-top: 22px;
+    font-size: 34px;
+    line-height: 1.15;
+    font-weight: 500;
+    color: var(--soft);
+  }
+  .role strong { color: var(--ink); font-weight: 700; }
+
+  .stack {
+    margin-top: 30px;
+    font-family: var(--mono);
+    font-size: 19px;
+    color: var(--muted);
+  }
+
+  .url {
+    position: absolute;
+    left: 72px; bottom: 46px;
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--mono);
+    font-size: 21px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .url .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(42,92,240,.25); }
+</style>
+</head>
+<body>
+  <div class="portrait" aria-hidden="true"></div>
+
+  <main class="content">
+    <p class="eyebrow"><span class="tick"></span>Toulouse, France · Remote worldwide</p>
+    <h1>Lemuel Donto</h1>
+    <p class="role"><strong>Lead Software Engineer</strong><br />Distributed systems, cloud &amp; AI</p>
+    <p class="stack">Go · Java/Spring Boot · React · AWS · Kubernetes</p>
+  </main>
+
+  <p class="url"><span class="dot"></span>lemueldonto.com</p>
+</body>
+</html>
