@@ -119,12 +119,12 @@ export const ui = {
       en: [
         'Software Engineer and Dev Lead with 4+ years designing, building, and operating distributed microservices in production.',
         'I take an idea and turn it into a product that runs — from the interface to the infrastructure, built to stay reliable once real users are on it.',
-        'Right now I’m building GLS’s connected-locker platform — I design and develop a large part of it. On the side, I launch my own products — nothing drives me more than turning an ambitious idea into something real.',
+        'Right now I’m building GLS’s connected-locker platform — I design and develop a large part of it. I’m also part of the small team building GLS France’s AI foundation. On the side, I launch my own products — nothing drives me more than turning an ambitious idea into something real.',
       ],
       fr: [
         'Ingénieur logiciel et Dev Lead avec 4+ ans d’expérience à concevoir, construire et opérer des microservices distribués en production.',
         'Je prends une idée et j’en fais un produit qui tourne — de l’interface à l’infrastructure, pensé pour rester fiable une fois entre les mains de vrais utilisateurs.',
-        'Aujourd’hui, je bâtis la plateforme de consignes connectées de GLS : j’en conçois et développe une grande partie. À côté, je lance mes propres produits — rien ne me motive autant que transformer une idée ambitieuse en réalité.',
+        'Aujourd’hui, je bâtis la plateforme de consignes connectées de GLS : j’en conçois et développe une grande partie. Je fais aussi partie de la petite équipe qui construit le socle IA de GLS France. À côté, je lance mes propres produits — rien ne me motive autant que transformer une idée ambitieuse en réalité.',
       ],
     } as L<string[]>,
   },
@@ -307,12 +307,13 @@ export const experience: ExperienceItem[] = [
       fr: 'GLS est l’un des plus grands réseaux de colis d’Europe. Mon équipe construit la plateforme qui branche les fournisseurs de consignes tiers sur son réseau Out-of-Home — un système polyglotte, orienté événements, sur AWS.',
     },
     impact: {
-      en: ['5 engineers led', '~350K parcels / day', 'Email-campaign UI redesigned'],
-      fr: ['5 ingénieurs encadrés', '~350K colis / jour', 'UI des campagnes d’emails refondue'],
+      en: ['5 engineers led', '~350K parcels / day', 'AI platform team', 'Email-campaign UI redesigned'],
+      fr: ['5 ingénieurs encadrés', '~350K colis / jour', 'Équipe socle IA', 'UI des campagnes d’emails refondue'],
     },
     bullets: {
       en: [
         'Support a 5-engineer team building a real-time microservices platform (Go, AWS) that integrates third-party lockers from multiple providers into GLS’s Out-of-Home (OOH) network.',
+        'Part of the small team building GLS France’s AI foundation — a shared platform of skills, agents and AI tooling that assists developers, product owners and stakeholders day to day.',
         'Co-design the service architecture and AWS infrastructure with GLS’s solution architect and tech lead, and serve as primary engineering contact for external locker providers, aligning API contracts across companies.',
         'Build and maintain end-to-end and integration test suites in Java with Cucumber and Gherkin (BDD), validating behaviour across a polyglot, multi-service environment.',
         'Own platform reliability and infrastructure — Grafana observability for service health and real-time event flows, AWS infrastructure as code with Terraform, and CI/CD build/test/deploy automation.',
@@ -320,6 +321,7 @@ export const experience: ExperienceItem[] = [
       ],
       fr: [
         'J’accompagne une équipe de 5 ingénieurs construisant une plateforme de microservices temps-réel (Go, AWS) qui intègre les consignes de plusieurs fournisseurs tiers au réseau Out-of-Home (OOH) de GLS.',
+        'Membre de la petite équipe qui construit le socle IA de GLS France — une plateforme commune de skills, d’agents et d’outils IA qui assiste au quotidien les développeurs, les PO et les parties prenantes.',
         'Je co-conçois l’architecture des services et l’infrastructure AWS avec l’architecte solution et le tech lead de GLS, et je suis le contact d’ingénierie principal des fournisseurs de consignes externes, alignant les contrats d’API entre entreprises.',
         'Je construis et maintiens des suites de tests end-to-end et d’intégration en Java avec Cucumber et Gherkin (BDD), validant le comportement dans un environnement polyglotte et multi-services.',
         'Je suis responsable de la fiabilité et de l’infrastructure — observabilité Grafana pour la santé des services et les flux d’événements temps-réel, infrastructure AWS as code avec Terraform, et automatisation CI/CD build/test/deploy.',
