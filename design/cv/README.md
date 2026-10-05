@@ -27,9 +27,12 @@ foreach ($l in "en", "fr") {
     --user-data-dir="$env:TEMP\cv-print-profile" `
     --no-pdf-header-footer --virtual-time-budget=15000 `
     --print-to-pdf="$repo\public\cv-$l.pdf" `
-    "file:///$($repo -replace '\\','/')/design/cv/cv-$l.html"
+    "file:///$($repo -replace '\\','/')/design/cv/cv-$l.html" | Out-Null
 }
 ```
+
+`| Out-Null` fait attendre PowerShell la fin de chaque Chrome : sans lui, les deux impressions
+partent en même temps sur le même profil et `cv-fr.pdf` n'est pas régénéré.
 
 `--virtual-time-budget` laisse le temps aux polices de se charger avant l'impression ;
 `--user-data-dir` évite d'entrer en conflit avec un Chrome déjà ouvert.
