@@ -1,0 +1,236 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   CV — Komlan Lemuel Donto · shared print stylesheet (EN + FR)
+
+   Same identity as the portfolio and the business card: Space Grotesk, a
+   JetBrains Mono accent for dates and stacks, navy ink #0f1e52 and the
+   electric blue #2a5cf0.
+
+   ATS rules this file sticks to:
+   - one reading column, DOM order = reading order;
+   - nothing is `position`ed: Chrome paints positioned boxes last, which
+     moves their text to the end of the PDF and scrambles the reading order
+     for parsers. Dots, rules and the accent tick are backgrounds, borders
+     or in-flow empty boxes — never characters;
+   - no positive letter-spacing: PDF text extractors read wide tracking as
+     spaces ("E X P E R I E N C E");
+   - no italics (Space Grotesk has none, the browser would fake an oblique).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* The left page margin is 5 mm narrower than the right one: the body gets
+   those 5 mm back as padding, and the accent tick next to the name hangs
+   in it. Chrome clips anything drawn in the @page margin itself. */
+@page {
+  size: A4;
+  margin: 11mm 14mm 10mm 9mm;
+}
+
+:root {
+  --ink: #0f1e52;      /* navy ink: name, headings, titles */
+  --text: #27335a;     /* body copy */
+  --muted: #5b6689;    /* meta lines, dates */
+  --accent: #2a5cf0;   /* electric blue */
+  --stack: #3d5fc4;    /* softer blue for the mono tech stacks */
+  --rule: #d6dcea;     /* hairlines */
+  --paper: #ffffff;
+
+  --sans: 'Space Grotesk', 'Segoe UI', Arial, sans-serif;
+  --mono: 'JetBrains Mono', Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+body {
+  margin: 0;
+  padding-left: 5mm;
+  font-family: var(--sans);
+  font-size: 8.8pt;
+  line-height: 1.38;
+  color: var(--text);
+  background: var(--paper);
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+}
+
+/* On screen the page is drawn as an A4 sheet, so a browser window of
+   794 × 1123 px (A4 at 96 dpi) previews exactly what gets printed. */
+@media screen {
+  html { background: #e7ebf4; }
+  body {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 11mm 14mm 10mm 14mm;
+  }
+}
+
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, p, ul, dl, dd { margin: 0; padding: 0; }
+ul { list-style: none; }
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+
+.cv-header {
+  padding-bottom: 3mm;
+  /* hairline + a short accent segment on its left, like the site's Label */
+  background:
+    linear-gradient(var(--accent), var(--accent)) left bottom / 22mm 0.5mm no-repeat,
+    linear-gradient(var(--rule), var(--rule)) left bottom / 100% 0.25mm no-repeat;
+}
+
+/* Name + headline, with the business card's accent tick in the margin. */
+.identity {
+  margin-left: -4.8mm;
+  padding: 0.6mm 0 0.4mm 3.7mm;
+  border-left: 1.1mm solid var(--accent);
+}
+
+.name {
+  font-size: 23pt;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.028em;
+  color: var(--ink);
+}
+
+.headline {
+  margin-top: 1.5mm;
+  font-size: 10.4pt;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.headline .role { color: var(--accent); font-weight: 600; }
+.headline .sep { color: var(--muted); font-weight: 400; }
+
+.contact {
+  margin-top: 2.4mm;
+  font-size: 8.2pt;
+  color: var(--muted);
+}
+.contact a { color: var(--ink); font-weight: 500; }
+.contact .sep { color: var(--accent); }
+.contact .line + .line { margin-top: 0.4mm; }
+
+/* ── Sections ────────────────────────────────────────────────────────────── */
+
+.sec { margin-top: 3.5mm; }
+
+.sec-title {
+  display: flex;
+  align-items: center;
+  gap: 2.2mm;
+  margin-bottom: 1.6mm;
+  font-size: 8.5pt;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--ink);
+  break-after: avoid;
+  page-break-after: avoid;
+}
+.sec-title::before {
+  content: '';
+  flex: none;
+  width: 4mm;
+  height: 0.5mm;
+  background: var(--accent);
+}
+.sec-title::after {
+  content: '';
+  flex: 1;
+  height: 0.25mm;
+  background: var(--rule);
+}
+
+.profile strong { color: var(--ink); font-weight: 600; }
+
+/* ── Entries (jobs, projects, degrees) ──────────────────────────────────── */
+
+.entry { break-inside: avoid; page-break-inside: avoid; }
+.entry + .entry { margin-top: 2.5mm; }
+
+.entry-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4mm;
+}
+
+.entry-title {
+  font-size: 9.6pt;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.entry-title .org { font-weight: 700; }
+.entry-title .sep { color: var(--accent); font-weight: 500; }
+.entry-title .note { font-weight: 500; color: var(--muted); font-size: 8.6pt; }
+
+.entry-date {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 7.6pt;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.entry-meta {
+  margin-top: 0.2mm;
+  font-size: 8pt;
+  color: var(--muted);
+}
+.entry-meta .stack {
+  font-family: var(--mono);
+  font-size: 7.1pt;
+  font-weight: 500;
+  color: var(--stack);
+}
+
+.bullets { margin-top: 0.9mm; }
+.bullets li {
+  padding-left: 3.6mm;
+  break-inside: avoid;
+}
+.bullets li + li { margin-top: 0.55mm; }
+/* In-flow dot (inline-block pulled into the padding), so it paints with
+   its line and carries no text. */
+.bullets li::before {
+  content: '';
+  display: inline-block;
+  width: 1.2mm;
+  height: 1.2mm;
+  margin-left: -3.1mm;
+  margin-right: 1.9mm;
+  border-radius: 50%;
+  background: var(--accent);
+  vertical-align: 0.12em;
+}
+.bullets strong { color: var(--ink); font-weight: 600; }
+
+/* ── Skills ──────────────────────────────────────────────────────────────── */
+
+.skills .row {
+  display: grid;
+  grid-template-columns: 34mm 1fr;
+  gap: 2.5mm;
+  break-inside: avoid;
+}
+.skills .row + .row { margin-top: 0.55mm; }
+.skills dt { font-weight: 600; color: var(--ink); }
+
+/* ── Education & languages ──────────────────────────────────────────────── */
+
+.edu .entry + .entry { margin-top: 1.2mm; }
+.edu .entry-title { font-size: 9pt; }
+/* Languages fit on one line, so the heading sits inline with them. */
+.langs { display: flex; align-items: center; gap: 3mm; }
+.langs .sec-title { flex: none; margin: 0; }
+.langs .sec-title::after { display: none; }
+.langs strong { color: var(--ink); font-weight: 600; }
+.langs .sep { color: var(--accent); }
